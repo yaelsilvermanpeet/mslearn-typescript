@@ -5,18 +5,35 @@
 
 class BuildArray {
     // TODO Define the properties
+    private _items: number;
+    private _sortOrder: 'ascending' | 'descending';
 
     // TODO Define the constructor
-
+    constructor(items:number, sortOrder: 'ascending' | 'descending') {
+        this._items = items;
+        this._sortOrder = sortOrder;
+    }
     // TODO Define the accessors
+    get items() {
+        return this._items;
+    }
+    set items(items) {
+        this._items = items;
+    }
 
+    get sortOrder() {
+        return this._sortOrder;
+    }
+    set sortOrder(sortOrder) {
+        this._sortOrder = this.sortOrder;
+    }
     // TODO Define the methods
 
-}
+
 
 /*  sortDescending is a comparison function that tells the sort method how to sort numbers
     in descending order. */
-let sortDescending = (a: number, b: number) => {
+private sortDescending = (a: number, b: number) => {
     if (a > b) {
         return -1;
     } else if (b > a) {
@@ -27,7 +44,7 @@ let sortDescending = (a: number, b: number) => {
 
 /*  sortAscending is a comparison function that tells the sort method how to sort numbers 
     in ascending order. */
-let sortAscending = (a: number, b: number) => {
+private sortAscending = (a: number, b: number) => {
     if (a > b) {
         return 1;
     } else if (b > a) {
@@ -40,10 +57,10 @@ let sortAscending = (a: number, b: number) => {
 /*  buildArray builds an array of unique random numbers containing the number of items 
     based on the number passed to it. The sortOrder parameter determines whether to sort 
     the array in ascending or descending order. */
-function buildArray(items: number, sortOrder: 'ascending' | 'descending'): number[] {
+buildArray(): number[] {
     let randomNumbers: number[] = [];
     let nextNumber: number;
-    for (let counter = 0; counter < items; counter++) {
+    for (let counter = 0; counter < this.items; counter++) {
         nextNumber = Math.ceil(Math.random() * (100 - 1));
         if (randomNumbers.indexOf(nextNumber) === -1) {
             randomNumbers.push(nextNumber);
@@ -51,16 +68,18 @@ function buildArray(items: number, sortOrder: 'ascending' | 'descending'): numbe
             counter--;
         }
     }
-    if (sortOrder === 'ascending') {
-        return randomNumbers.sort(sortAscending);
+    if (this._sortOrder === 'ascending') {
+        return randomNumbers.sort(this.sortAscending);
     } else {
-        return randomNumbers.sort(sortDescending);
+        return randomNumbers.sort(this.sortDescending);
     }
+}
+
 }
 
 /*  TODO: Instantiate the BuildArray objects. */
 
-let testArray1 = buildArray(12, 'ascending');
-let testArray2 = buildArray(8, 'descending');
-console.log(testArray1);
-console.log(testArray2);
+let testArray1 = new BuildArray(12, 'ascending');
+let testArray2 = new BuildArray(8, 'descending');
+console.log(testArray1.buildArray());
+console.log(testArray2.buildArray());
